@@ -1,22 +1,41 @@
 import React from 'react';
-import Styles from "./Navbar.css";
+import styles from "./Navbar.module.css";
 import SearchBar from "../SearchBar/SearchBar.jsx";
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <div>
-            <div>
-                <div>
-                    logo
-                </div>
+        <div className={styles.bigContainer}>
+            <div className={styles.upperContainer}>
+                <NavLink to="/" className={styles.logo}>
+                    Logo
+                </NavLink>
                 <SearchBar />
-                <div>
-                    log in and register / User
+                <div className={styles.navLinks}>
+                    <NavLink to="/under-construction" className={styles.logIn}>
+                        Log In 
+                    </NavLink>
+                    <NavLink to="/under-construction" className={styles.register}>
+                        Register
+                    </NavLink> 
+                    <NavLink to="/under-construction" className={styles.user}>
+                        User
+                    </NavLink>
                 </div> 
             </div>
-            Navlinks: Home, Statistics, Add Match
-            <div>
-
+            <div className={styles.lowerContainer}>
+                <NavLink to="/" className={styles.home}>
+                    Home
+                </NavLink>
+                <NavLink to="/under-construction" className={styles.news}>
+                    News
+                </NavLink>
+                <NavLink to="/under-construction" className={styles.statistics}>
+                    Statistics
+                </NavLink> 
+                <NavLink to="/under-construction" className={styles.addMatch}>
+                    Add Match
+                </NavLink>
             </div>
         </div>
     )

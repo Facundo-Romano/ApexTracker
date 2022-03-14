@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from "./MatchForm.css";
+import styles from "./MatchForm.module.css";
 
 
 const MatchForm = () => {
