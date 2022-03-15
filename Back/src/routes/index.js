@@ -4,6 +4,7 @@ const { Router } = require("express");
 
 const matchRoutes = require("./matchRoutes.js");
 const userRoutes = require("./userRoutes.js");
+const getApiData = require("./getApiData.js");
 
 const router = Router();
 // Configurar los routers
@@ -11,5 +12,6 @@ const router = Router();
 
 router.use("/match", matchRoutes);
 router.use("/user",  userRoutes);
+router.use("/api", getApiData);
 
 module.exports = router;
