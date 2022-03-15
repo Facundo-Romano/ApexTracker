@@ -20,28 +20,34 @@ import Seer from "../../media/legends/Seer.png";
 import Valkyrie from "../../media/legends/Valkyrie.png";
 import Wattson from "../../media/legends/Wattson.png";
 import Wraith from "../../media/legends/Wraith.png";
+import axios from "axios";
 
 
 const MatchForm = () => {
     const userCategories = ["kills", "assists", "knocks", "damage", "time"];
     const teammateCategories = [ "teammateKills", "teammateAssists", "teammateKnocks", "teammateDamage"];
     const secondCategories = [ "secondTeammateKills", "secondTeammateAssists", "secondTeammateKnocks", "secondTeammateDamage"];
-    const allCategories = [ ...userCategories, ...teammateCategories, ... secondCategories ];
+    const allCategories = [ ...userCategories, ...teammateCategories, ...secondCategories];
     const displayCategories = ["Kills", "Assists", "Knocks", "Damage", "Duration"];
     const charactersStr = ["Ash", "Bangalore", "Bloodhound", "Caustic", "Crypto", "Fuse", "Gibraltar", "Horizon", "Lifeline", 
     "Loba", "MadMaggie", "Mirage", "Octane", "Pathfinder", "Rampart", "Revenant", "Seer", "Valkyrie", "Wattson", "Wraith"];
     const characters = [Ash, Bangalore, Bloodhound, Caustic, Crypto, Fuse, Gibraltar, Horizon, Lifeline, 
     Loba, MadMaggie, Mirage, Octane, Pathfinder, Rampart, Revenant, Seer, Valkyrie, Wattson, Wraith];
     const [legend, setLegend] = useState(Ash);
+    const [main, setMain] = useState("Ash");
     const [error, setError] = useState("Hope you kicked some asses in your match 😃");
     const arrIntoObj = (arr) => {
         let obj = {};
         arr.forEach(element => {
-            obj[element] = 0;
+            if (element === "time") {
+                obj[element] = "1:00";
+            } else {
+                obj[element] = 0;
+            }
         });
         return obj
     };
-    const errorRefs = useMemo(() => Array(12).fill(0).map(i => createRef()), []);
+    const errorRefs = useMemo(() => Array(13).fill(0).map(i => createRef()), []);
     const [match, setMatch] = useState(arrIntoObj(allCategories));
     const [secondTeammate, setSecondTeammate] = useState(true);
 
@@ -54,7 +60,8 @@ const MatchForm = () => {
     };
 
     const handleSelect = (e) => {
-        setLegend(characters[e.target.value])
+        setLegend(characters[e.target.value]);
+        setMain(charactersStr[e.target.value])
     };
 
     const handleChange = (e) => {
@@ -75,7 +82,8 @@ const MatchForm = () => {
             } else {
                 setError("Nice timing ⌛");
                 errorRefs[i].current.style.backgroundColor = "transparent";
-                setMatch({ ...match, category });
+                match[`${category}`] = number;
+                setMatch({ ...match });
             }
         } else if (!isNaN(number)) {
             if (category === "damage" || category === "teammateDamage") {
@@ -85,7 +93,8 @@ const MatchForm = () => {
                 } else {
                     setError("Some damage is better than no damage 🔥")
                     errorRefs[i].current.style.backgroundColor = "transparent";
-                    setMatch({ ...match, category });
+                    match[`${category}`] = number;
+                    setMatch({ ...match });
                 }
             } else {
                 if (number > 59) {
@@ -94,7 +103,8 @@ const MatchForm = () => {
                 } else {
                     setError("Kill 'em all 💀");
                     errorRefs[i].current.style.backgroundColor = "transparent";
-                    setMatch({ ...match, category });
+                    match[`${category}`] = number;
+                    setMatch({ ...match });
                 }
             }
         } else {
@@ -103,8 +113,23 @@ const MatchForm = () => {
         }
     };
 
-    const handleSubmit = (e) => {
-        console.log(e)
+    const isError = () => {
+        for (let i = 0; i < errorRefs.length; i++) {
+            if (errorRefs[i].current.style.backgroundColor === "red") {
+                setError("Those numbers look sus 🤨");
+                return false
+            }
+        };
+        return true
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (isError()) {
+            console.log(await axios.post(`http://localhost:3001/match/create/${1}`, { ...match, main }));
+            window.location.reload();
+        }
+        return
     };
 
     return (
@@ -131,7 +156,7 @@ const MatchForm = () => {
                         {userCategories.map((category, i) => (
                         <div className={styles.categotyContainer} key={i}>
                             <label className={styles.label} htmlFor={`${category}+${i}`} key={`${i} label`}>{displayCategories[i]}</label>
-                            <input className={styles.input} type="text" name={`${category}+${i}`} defaultValue={0} ref={errorRefs[i]} onChange={handleChange} key={`${i} input`}/>
+                            <input className={styles.input} type="text" name={`${category}+${i}`} defaultValue={match[`${category}`]} ref={errorRefs[i]} onChange={handleChange} key={`${i} input`}/>
                         </div>
                         ))}
                     </div>
@@ -142,7 +167,7 @@ const MatchForm = () => {
                                 {teammateCategories.map((category, i) => (
                                 <div className={styles.categotyContainer_t} key={i + 5}>
                                     <label className={styles.label} htmlFor={`${category}+${i + 5}`} key={`${i + 5} label`}>{displayCategories[i]}</label>
-                                    <input className={styles.input} type="text" name={`${category}+${i + 5}`} defaultValue={0} ref={errorRefs[i + 5]} onChange={handleChange} key={`${i} input`}/>
+                                    <input className={styles.input} type="text" name={`${category}+${i + 5}`} defaultValue={match[`${category}`]} ref={errorRefs[i + 5]} onChange={handleChange} key={`${i} input`}/>
                                 </div>
                                 ))}
                             </div>
@@ -151,9 +176,9 @@ const MatchForm = () => {
                             {secondTeammate && <h2>Second Teammate</h2>}
                             {secondTeammate && <div className={styles.teammateContainer}>
                                 {secondCategories.map((category, i) => (
-                                <div className={styles.categotyContainer_t} key={i + 8}>
-                                    <label className={styles.label} htmlFor={`${category}+${i + 8}`} key={`${i + 8} label`}>{displayCategories[i]}</label>
-                                    <input className={styles.input} type="text" name={`${category}+${i + 8}`} defaultValue={0} ref={errorRefs[i + 8]} onChange={handleChange} key={`${i + 8} input`}/>
+                                <div className={styles.categotyContainer_t} key={i + 9}>
+                                    <label className={styles.label} htmlFor={`${category}+${i + 9}`} key={`${i + 9} label`}>{displayCategories[i]}</label>
+                                    <input className={styles.input} type="text" name={`${category}+${i + 9}`} defaultValue={match[`${category}`]} ref={errorRefs[i + 9]} onChange={handleChange} key={`${i + 9} input`}/>
                                 </div>
                                 ))}
                             </div>}
@@ -162,6 +187,7 @@ const MatchForm = () => {
                 </div>
                 {secondTeammate && <button className={styles.teammate_btn} onClick={teammateChange}>Remove Second Teammate</button>}
                 {!secondTeammate && <button className={styles.teammate_btn} onClick={teammateChange}>Add Second Teammate</button>}
+                <button className={styles.addmatch} type='submit'>Add Match</button>
             </form>
         </div>
     )

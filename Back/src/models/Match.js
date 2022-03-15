@@ -28,6 +28,11 @@ module.exports = (sequelize) => {
                 this.setDataValue("time", timeSum);
             }
         },
+		main: {
+			type: DataTypes.ENUM("Ash", "Bangalore", "Bloodhound", "Caustic", "Crypto", "Fuse", "Gibraltar", "Horizon", "Lifeline", 
+			"Loba", "MadMaggie", "Mirage", "Octane", "Pathfinder", "Rampart", "Revenant", "Seer", "Valkyrie", "Wattson", "Wraith"),
+			allowNull: false,
+		},
 		teammateKills: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
