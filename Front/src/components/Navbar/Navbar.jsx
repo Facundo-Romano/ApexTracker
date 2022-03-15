@@ -33,7 +33,7 @@ const Navbar = () => {
                 <NavLink to="/under-construction" className={styles.statistics}>
                     Statistics
                 </NavLink> 
-                <NavLink to="/under-construction" className={styles.addMatch}>
+                <NavLink to="/new-match" className={styles.addMatch}>
                     Add Match
                 </NavLink>
             </div>
