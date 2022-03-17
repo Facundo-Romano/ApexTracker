@@ -1,4 +1,5 @@
-const { DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize');
+const { hashSync } = require("bcrypt");
 
 module.exports = (sequelize) => {
 	sequelize.define('user', {
@@ -6,59 +7,18 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
 			allowNull: false,
         },
+        associatedApexAccount: {
+            type: DataTypes.STRING
+        },
         password: {
             type: DataTypes.STRING,
 			allowNull: false,
+            set(password) {
+				this.setDataValue('password', hashSync(password, 10))
+			}
         },
-        averageKills: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageAssists: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageKnocks: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageDamage: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageTime: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageTeammateKills: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageTeammateAssists: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageTeammateKnocks: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        averageTeammateDamage: {
-            type: DataTypes.FLOAT,
-            defaultValue: 0,
-			allowNull: false,
-        },
-        totalMatches: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
-			allowNull: false,
+        platform: {
+            type: DataTypes.ENUM("PC", "PS4", "X1")
         },
         main: {
             type: DataTypes.ENUM("Ash", "Bangalore", "Bloodhound", "Caustic", "Crypto", 
