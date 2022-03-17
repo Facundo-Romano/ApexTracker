@@ -12,7 +12,7 @@ const Navbar = () => {
                 </NavLink>
                 <SearchBar />
                 <div className={styles.navLinks}>
-                    <NavLink to="/under-construction" className={styles.logIn}>
+                    <NavLink to="/login" className={styles.logIn}>
                         Log In 
                     </NavLink>
                     <NavLink to="/under-construction" className={styles.register}>
@@ -33,7 +33,7 @@ const Navbar = () => {
                 <NavLink to="/under-construction" className={styles.statistics}>
                     Statistics
                 </NavLink> 
-                <NavLink to="/under-construction" className={styles.addMatch}>
+                <NavLink to="/new-match" className={styles.addMatch}>
                     Add Match
                 </NavLink>
             </div>

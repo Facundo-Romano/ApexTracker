@@ -1,10 +1,12 @@
 const { Router } = require("express");
 const router = Router();
-const userControllers = require("../controllers/user/index.js");
+const userControllers = require("../userControllers/index.js");
+const passport = require("passport");
 
-router.get("/get/:id", userControllers.get);
-router.get("/remove/:id", userControllers.remove);
-router.post("/create", userControllers.create);
-router.put("/update/:id", userControllers.update);
+router.get("/get", passport.authenticate("jwt", { session: false }), userControllers.get);
+router.get("/remove", userControllers.remove);
+router.post("/register", userControllers.register);
+router.post("/login", userControllers.login);
+router.put("/update", userControllers.update);
 
 module.exports = router;

@@ -5,6 +5,8 @@ import Home from "./components/Home/Home.jsx";
 import User from "./components/User/User.jsx";
 import MatchForm from "./components/MatchForm/MatchForm.jsx";
 import UnderConstruction from "./components/UnderConstruction/UnderConstruction.jsx";
+import Login from "./components/Login/Login.jsx";
+import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -16,6 +18,10 @@ function App() {
           <Route exact path="/user" element={<User />} />
           <Route exact path="/new-match" element={<MatchForm />} />
           <Route exact path="/under-construction" element={<UnderConstruction />} />
+          <Route exact path="/login" element={
+              <ProtectedRoute role="guest">
+                <Login />
+              </ProtectedRoute>}/>
         </Routes>
       </div>
     </Router>

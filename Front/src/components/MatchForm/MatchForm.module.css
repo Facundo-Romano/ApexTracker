@@ -1,0 +1,130 @@
+.bigContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.legendImg {
+    width: 33%;
+    background-color: darkslategrey;
+}
+
+.midContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    gap: 12px;
+    padding: 12px;
+    background-color: aquamarine;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+    padding: 12px;
+    background-color: goldenrod;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: black;
+}
+
+.error h2 {
+    color: beige;
+}
+
+.matchForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    width: 50%;
+    background-color: lightslategrey;
+}
+
+.smallContainer {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 12px;
+    background-color: blanchedalmond;
+}
+
+.userContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 90%;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: aquamarine;
+}
+
+.categotyContainer {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 45%;
+    background-color: goldenrod;
+}
+
+.input {
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+.secondaryContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 120px;
+    background-color: yellowgreen;
+}
+
+.internalContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 12px;
+}
+
+.teammateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: center;
+    gap: 8px;
+}
+
+.categotyContainer_t {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    background-color: grey;
+}
+
+.teammate_btn {
+    display: flex;
+    margin: 12px;
+}
