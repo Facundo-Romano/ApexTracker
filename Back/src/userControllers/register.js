@@ -2,7 +2,8 @@ const { User } = require("../db");
 const createJWT = require("./utils/createJWT.js");
 
 const create = async (req, res) => {
-    const { email } = req.body;
+    const user = req.body;
+    const email = user.email;
     try {
         const user = await User.findOne({ where: { email } });
         if (!user) res.json({ status: "error", payload: "Email already taken" });

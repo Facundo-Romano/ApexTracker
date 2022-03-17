@@ -15,13 +15,14 @@ const login = async (req, res) => {
         }); */
 
         const token = createJWT(user.id);
+
         const sendUserInfo = {
             id: user.id,
             name: user.name,
-            email: user.email,
-            token
+            email: user.email
         };
-        return res.json({ status: "ok", payload: sendUserInfo });
+        
+        return res.json({ status: "ok", payload: { user: sendUserInfo, token } });
     } catch (err) {
         res.json({ status: "error", payload: err.message });
     }
