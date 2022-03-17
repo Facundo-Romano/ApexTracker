@@ -1,5 +1,5 @@
 const { User } = require("../db");
-const getApiData = require("../ApexLegendsAPI/getApiData.js");
+const getApiData = require("./utils/getApiData.js");
 
 const update = async (req, res) => {
     try {
@@ -39,8 +39,6 @@ const update = async (req, res) => {
                 } else {
                     return { status: "error", payload: data.payload }
                 }
-
-            
         }
     } catch (err) {
         res.json({ status: "error", payload: err.message })

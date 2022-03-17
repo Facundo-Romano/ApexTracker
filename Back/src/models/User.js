@@ -10,6 +10,13 @@ module.exports = (sequelize) => {
         associatedApexAccount: {
             type: DataTypes.STRING
         },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+              isEmail: true,
+            }
+        },
         password: {
             type: DataTypes.STRING,
 			allowNull: false,
@@ -25,13 +32,11 @@ module.exports = (sequelize) => {
             "Fuse", "Gibraltar", "Horizon", "Lifeline", "Loba", "Mad Maggie", "Mirage",
             "Octane", "Pathfinder", "Rampart", "Revenant", "Seer", "Valkyrie", "Wattson",
             "Wraith"),
-            defaultValue: "Revenant",
-			allowNull: false,
+            defaultValue: "Revenant"
         },
         points: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
-			allowNull: false,
+            defaultValue: 0
         }
 	})
 };

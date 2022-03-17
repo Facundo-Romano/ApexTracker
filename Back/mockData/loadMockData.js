@@ -4,7 +4,8 @@ const loadMockData = async () => {
 	try {
 	const dbUser = await User.create({
 		name: "Facu",
-		password: '1234'
+		password: '1234',
+		email: "facuromano121299@gmail.com"
 	});
     } catch (err) {
 	    console.log(err)
