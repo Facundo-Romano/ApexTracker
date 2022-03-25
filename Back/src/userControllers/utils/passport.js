@@ -1,7 +1,7 @@
 const JwtStrategy = require("passport-jwt").Strategy,
 ExtractJwt = require("passport-jwt").ExtractJwt;
 const opts = {};
-const { User } = require("../../db.js");
+const { User } = require("../../db");
 const passport = require("passport");
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -15,7 +15,7 @@ passport.use(
 				return done(null, false);
 			}
 			return done(null, user);
-		} catch (err) {
+		} catch (e) {
 			return done(err, false);
 		}
 	})

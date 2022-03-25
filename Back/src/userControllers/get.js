@@ -1,5 +1,5 @@
 const get = async (req, res) => {
-  const sendUserInfo = {
+    const sendUserInfo = {
 		id: req.user.id,
 		name: req.user.name,
 		email: req.user.email

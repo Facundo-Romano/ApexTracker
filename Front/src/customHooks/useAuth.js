@@ -12,14 +12,11 @@ export default function useAuth() {
     async (user) => {
       const res = await userRegister(user, setUser);
       if (res.status === "ok") return res.payload;
-      else throw new Error(res.payload);
     }, [setUser]);
 
   const login = useCallback(
     async (user) => {
-      const res = await userLogin(user, setUser);
-      if (res.status === "ok") return res.payload.user;
-      else throw new Error(res.payload);
+      return await userLogin(user, setUser);
     }, [setUser]);
 
   const logout = useCallback(() => {
@@ -32,7 +29,7 @@ export default function useAuth() {
       const user = await userVerify(token);
       return user;
     } catch (err) {
-      throw new Error(err.message);
+      return err
     }
   }; */
   
