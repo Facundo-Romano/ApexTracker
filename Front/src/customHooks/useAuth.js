@@ -10,8 +10,7 @@ export default function useAuth() {
 
   const register = useCallback(
     async (user) => {
-      const res = await userRegister(user, setUser);
-      if (res.status === "ok") return res.payload;
+      return await userRegister(user, setUser);
     }, [setUser]);
 
   const login = useCallback(

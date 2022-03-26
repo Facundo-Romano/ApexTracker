@@ -6,6 +6,7 @@ import User from "./components/User/User.jsx";
 import MatchForm from "./components/MatchForm/MatchForm.jsx";
 import UnderConstruction from "./components/UnderConstruction/UnderConstruction.jsx";
 import Login from "./components/Login/Login.jsx";
+import Register from "./components/Register/Register.jsx";
 import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
           <Route exact path="/login" element={
               <ProtectedRoute role="guest">
                 <Login />
+              </ProtectedRoute>}/>
+          <Route exact path="/register" element={
+              <ProtectedRoute role="guest">
+                <Register />
               </ProtectedRoute>}/>
         </Routes>
       </div>
