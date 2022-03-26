@@ -19,7 +19,7 @@ const create = async (req, res) => {
             res.json({ status: "ok", payload: sendUserInfo });
         }
     } catch (err) {
-        res.json({ status: "error", payload: err.message })
+        res.status(404).json(err)
     }
 };
 

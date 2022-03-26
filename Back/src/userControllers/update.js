@@ -37,11 +37,11 @@ const update = async (req, res) => {
                     await user.save();
                     res.json({ status: "ok", payload: user })
                 } else {
-                    return { status: "error", payload: data.payload }
+                    res.json({ status: "error", payload: data.payload })
                 }
         }
     } catch (err) {
-        res.json({ status: "error", payload: err.message })
+        res.status(404).json(err)
     }
 };
 

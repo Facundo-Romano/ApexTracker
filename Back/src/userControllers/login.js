@@ -6,8 +6,8 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ where: { email } });
-        if (!user) res.json({ status: "error", payload: "Incorrect user or password" });
-        if (!compareSync(password, user.password)) res.json({ status: "error", payload: "Incorrect user or password" });
+        if (!user) return res.json({ status: "error", payload: "Incorrect user or password" });
+        if (!compareSync(password, user.password)) return res.json({ status: "error", payload: "Incorrect user or password" });
         /* if (!user.isVerified)
         return res.json({
         status: "error",
@@ -24,7 +24,7 @@ const login = async (req, res) => {
         
         return res.json({ status: "ok", payload: { user: sendUserInfo, token } });
     } catch (err) {
-        res.json({ status: "error", payload: err.message });
+        res.status(404).json(err);
     }
 };
 module.exports = login;

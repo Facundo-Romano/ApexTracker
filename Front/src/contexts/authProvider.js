@@ -5,16 +5,14 @@ import AuthContext, { initalUser } from "./authContext";
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState({ ...initalUser, firstLoad: true });
-  const userGlobalState = { user, setUser };
+  const value = { user, setUser };
 
   useEffect(() => {
-    setUser((prev) => {
-      return { ...prev, firstLoad: true };
-    });
+    setUser((prev) => { return { ...prev, firstLoad: true } });
     userGet()
       .then((res) => {
-        const user = res.data.payload;
-        setUser((prev) => { return { ...prev, user, firstLoad: false }});
+        res.role = "user";
+        setUser((prev) => { return { ...prev, user: res, firstLoad: false }});
       })
       .catch(() => {
         userReset();
@@ -22,7 +20,7 @@ function AuthProvider({ children }) {
       });
   }, []);
 
-  return <AuthContext.Provider value={userGlobalState}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export default AuthProvider;

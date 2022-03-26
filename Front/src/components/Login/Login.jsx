@@ -12,8 +12,13 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     login({ ...userLogin })
-    .then(() => console.log('funca')/* closeModal() */)
-    .catch(err => console.log(err))
+    .then((res) => {
+        if (res.status ===  "ok") {
+            console.log(res.payload)
+        } else {
+            console.log(res.payload)
+        }
+    }/* closeModal() */);
   };
 
   const handleChange = (e) => {
@@ -30,7 +35,7 @@ export default function Login() {
 
   return (
       <div>
-            <h1>Sing In</h1>
+            <h1>Sign In</h1>
             {/* <img src={main} alt="Not loading"/> */}
             <form onSubmit={handleSubmit}>
                 <div>
@@ -49,7 +54,7 @@ export default function Login() {
                         ))}
                     </select>
                 </div> */}
-                <button type='submit'>Sing In</button>
+                <button type='submit'>Sign In</button>
             </form>
       </div>
   );

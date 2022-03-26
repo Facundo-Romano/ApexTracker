@@ -16,7 +16,7 @@ const remove = async (req, res) => {
             res.json({ status: "ok", payload: user });
         }
     } catch (err) {
-        res.json({ status: "error", payload: err.message })
+        res.status(404).json(err)
     }
 };
 
