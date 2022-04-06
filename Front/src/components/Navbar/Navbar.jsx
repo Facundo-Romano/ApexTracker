@@ -2,8 +2,11 @@ import React from 'react';
 import styles from "./Navbar.module.css";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import { NavLink } from 'react-router-dom';
+import useAuth from "../../customHooks/useAuth.js";
 
 const Navbar = () => {
+    const { logout } = useAuth();
+
     return (
         <div className={styles.bigContainer}>
             <div className={styles.upperContainer}>
@@ -21,6 +24,7 @@ const Navbar = () => {
                     <NavLink to="/under-construction" className={styles.user}>
                         User
                     </NavLink>
+                    <button onClick={() => logout()}>Log Out</button>
                 </div> 
             </div>
             <div className={styles.lowerContainer}>

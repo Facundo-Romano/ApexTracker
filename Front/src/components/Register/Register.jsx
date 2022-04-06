@@ -14,7 +14,6 @@ export default function Register() {
     for (const property in userRegister) {
         if (userRegister[property] === "") return
     }
-    console.log(userRegister)
     register({ ...userRegister })
     .then((res) => {
         if (res.status ===  "ok") {
