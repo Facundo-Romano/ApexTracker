@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./Navbar.module.css";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import { NavLink } from 'react-router-dom';
 import useAuth from "../../customHooks/useAuth.js";
+import Login from "../Login/Login.jsx";
+import Register from "../Register/Register.jsx";
 
 const Navbar = () => {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
     return (
         <div className={styles.bigContainer}>
@@ -15,16 +19,12 @@ const Navbar = () => {
                 </NavLink>
                 <SearchBar />
                 <div className={styles.navLinks}>
-                    <NavLink to="/login" className={styles.logIn}>
-                        Log In 
-                    </NavLink>
-                    <NavLink to="/register" className={styles.register}>
-                        Register
-                    </NavLink> 
+                    {user.id === -1 ? <button onClick={() => setIsLoginOpen(true)}>Log In</button> : 
                     <NavLink to="/under-construction" className={styles.user}>
                         User
-                    </NavLink>
-                    <button onClick={() => logout()}>Log Out</button>
+                    </NavLink>}
+                    {user.id === -1 ? <button onClick={() => setIsRegisterOpen(true)}>Register</button> : 
+                    <button onClick={() => logout()}>Log Out</button>}
                 </div> 
             </div>
             <div className={styles.lowerContainer}>
@@ -41,6 +41,8 @@ const Navbar = () => {
                     Add Match
                 </NavLink>
             </div>
+            <Login isOpen={isLoginOpen} closeModal={() => setIsLoginOpen(false)}></Login>
+            <Register isOpen={isRegisterOpen} closeModal={() => setIsRegisterOpen(false)}></Register>
         </div>
     )
 };

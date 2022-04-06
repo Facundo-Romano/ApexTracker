@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import ReactDom from "react-dom";
 import useAuth from "../../customHooks/useAuth.js";
+import styles from "./Login.module.css";
 
-export default function Login() {
+export default function Login({ isOpen, closeModal }) {
   const [userLogin, setUserLogin] = useState({ email: "", password: "" });
   const { login } = useAuth();
+
+  if (!isOpen) return null
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login({ ...userLogin })
     .then((res) => {
         if (res.status ===  "ok") {
-            console.log(res.payload)
+            closeModal()
         } else {
             console.log(res.payload)
         }
@@ -24,8 +28,10 @@ export default function Login() {
     setUserLogin({ ...userLogin });
   };
 
-  return (
-      <div>
+  return ReactDom.createPortal(
+    <>
+        <div className={styles.background}/>
+        <div className={styles.modal}>
             <h1>Sign In</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -38,6 +44,9 @@ export default function Login() {
                 </div>
                 <button type='submit'>Sign In</button>
             </form>
-      </div>
+            <button onClick={() => closeModal()}>X</button>
+        </div>
+    </>,
+    document.getElementById("portal")
   );
 };

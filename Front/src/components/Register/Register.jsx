@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import ReactDom from "react-dom";
 import useAuth from "../../customHooks/useAuth.js";
 import legends from "../../media/legends/exportLegends.js";
+import styles from "./Register.module.css";
+import RegistrationApproved from "./RegistrationApproved.jsx";
 
-export default function Register() {
+export default function Register({ isOpen, closeModal }) {
   const [userRegister, setUserRegister] = useState({ email: "", password: "", name: "", main: "Ash" });
   const { register } = useAuth();
   const [main, setMain] = useState(legends[0]);
   const legendsName = ["Ash", "Bangalore", "Bloodhound", "Caustic", "Crypto", "Fuse", "Gibraltar", "Horizon", "Lifeline", 
   "Loba", "MadMaggie", "Mirage", "Octane", "Pathfinder", "Rampart", "Revenant", "Seer", "Valkyrie", "Wattson", "Wraith"];
+  const [approved, isApproved] = useState(false);
+
+  if (!isOpen) return null
+  if (approved) return <RegistrationApproved resetApproved={() => isApproved(false)} closeModal={() => closeModal()}/>
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +24,7 @@ export default function Register() {
     register({ ...userRegister })
     .then((res) => {
         if (res.status ===  "ok") {
-            console.log(res.payload)
+            isApproved(true)
         } else {
             console.log(res.payload)
         }
@@ -37,10 +44,13 @@ export default function Register() {
       setUserRegister({ ...userRegister, main: legendsName[index] });
   };
 
-  return (
-      <div>
+  return ReactDom.createPortal(
+      <>
+        <div className={styles.background}/>
+        <div className={styles.modal}>
             <h1>Sign Up</h1>
-            <img src={main} alt="Not loading"/>
+            <div className={styles.container}>
+            <img src={main} alt="Not loading" className={styles.img}/>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="name">Name</label>
@@ -64,6 +74,10 @@ export default function Register() {
                 </div> 
                 <button type='submit'>Sign Up</button>
             </form>
-      </div>
-  );
-}
+            </div>
+            <button onClick={() => closeModal()}>X</button>
+        </div>
+      </>,
+    document.getElementById("portal")
+  )
+};
