@@ -5,6 +5,8 @@ const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, HEROKU_DB_USER, 
 	    HEROKU_DB_PASSWORD, HEROKU_DB_HOST, HEROKU_DB_NAME, NODE_ENV } = process.env;
 
+console.log(Sequelize);
+
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
 	{
 		logging: false, // set to console.log to see the raw SQL queries

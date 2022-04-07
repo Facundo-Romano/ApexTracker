@@ -4,8 +4,7 @@
 	"description": "Art gallery backend",
 	"main": "index.js",
 	"scripts": {
-		"nodemon": "nodemon -L",
-		"start": "node index.js",
+		"start": "nodemon -L",
 		"test": "test"
 	},
 	"author": "",
